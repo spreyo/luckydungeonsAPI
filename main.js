@@ -22,7 +22,7 @@ app.post('/deposit', (req, res, next) => {
     username = req.body["username"];
     amount = req.body.amount;
     console.log(username);
-    res.send("nigga");
+    res.send(username);
     res.sendStatus(200);
 
 })
