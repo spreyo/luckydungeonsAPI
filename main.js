@@ -21,7 +21,8 @@ app.use(bodyParser.json());
 app.post('/deposit', (req, res, next) => {
     username = req.body.username;
     amount = req.body.amount;
-    res.sendStatus("asd");
+    res.send(username);
+    res.sendStatus(200);
 
 })
 
