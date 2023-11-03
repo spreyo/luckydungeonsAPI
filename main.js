@@ -23,6 +23,10 @@ app.post('/deposit', (req, res, next) => {
     amount = req.body.amount;
     console.log(username, amount);
 })
+
+app.get('/test', (req, res, next) => {
+    res.send("test");
+})
 app.delete('/delete/', (req, res) => {
 })
 
