@@ -43,6 +43,23 @@ app.post('/deposit', async (req, res, next) => {
     res.status(200).send(`${username}, ${amount}`);
 })
 
+app.post("/withdraw", async (req, res, next) => {
+    const username = req.body["username"];
+    const conn = await pool.getConnection();
+    var amount = await conn.query(`SELECT amount
+        FROM s22477_dungeons.vault
+        WHERE username = "${username}"`);
+    if (amount[0] == 0 || amount[0] == undefined) {
+        res.status(200).send(0);
+        return;
+    }
+    await conn.query(`UPDATE s22477_dungeons.vault 
+    SET amount = 0
+    WHERE username = '${username}'`);
+    res.status(200).send(`${amount[0]["amount"]}`);
+
+})
+
 app.get('/test', (req, res, next) => {
     res.send("test");
 })
