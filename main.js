@@ -37,7 +37,7 @@ app.post('/deposit', async (req, res, next) => {
     pool.getConnection()
         .then(conn => {
             conn.query(`UPDATE s22477_dungeons.vault 
-            SET amount = 64
+            SET amount = ${curAmount + amount}
             WHERE username = '${username}';`)
         })
     res.status(200).send(`${username}, ${amount}`);
