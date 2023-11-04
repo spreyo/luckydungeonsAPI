@@ -26,7 +26,7 @@ app.post('/deposit', async (req, res, next) => {
         FROM s22477_dungeons.vault
         WHERE username = "${username}"`);
 
-    if (curAmount == undefined || curAmount == []) {
+    if (curAmount[0] == undefined) {
         await conn.query(`INSERT INTO s22477_dungeons.vault
             (username, amount)
             VALUES('${username}', ${amount});
@@ -37,7 +37,7 @@ app.post('/deposit', async (req, res, next) => {
 
 
     await conn.query(`UPDATE s22477_dungeons.vault 
-            SET amount = ${curAmount + amount}
+            SET amount = ${parseInt(curAmount[0]["amount"]) + parseInt(amount)}
             WHERE username = '${username}'`)
 
     res.status(200).send(`${username}, ${amount}`);
