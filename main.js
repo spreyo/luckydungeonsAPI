@@ -18,12 +18,29 @@ app.use(bodyParser.json());
 
 
 
-app.post('/deposit', (req, res, next) => {
-    username = req.body["username"];
-    amount = req.body.amount;
-    console.log(username);
-    res.status(200).send(`${username}, ${amount}`);
+app.post('/deposit', async (req, res, next) => {
+    const username = req.body["username"];
+    const amount = req.body.amount;
+    const conn = await pool.getConnection();
+    var curAmount = await conn.query(`SELECT amount
+        FROM s22477_dungeons.vault
+        WHERE username = "${username}";`)
+    if (curAmount == undefined) {
+        conn.query(`INSERT INTO s22477_dungeons.vault
+        (username, amount)
+        VALUES('${username}', ${amount});
+        `)
+        res.status(200).send(`${username}, ${amount}`);
+        return;
+    }
 
+    pool.getConnection()
+        .then(conn => {
+            conn.query(`UPDATE s22477_dungeons.vault 
+            SET amount = 64
+            WHERE username = '${username}';`)
+        })
+    res.status(200).send(`${username}, ${amount}`);
 })
 
 app.get('/test', (req, res, next) => {
