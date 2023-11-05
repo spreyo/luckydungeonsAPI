@@ -90,7 +90,7 @@ app.get("/login", async (req, res, next) => {
     FROM s22477_dungeons.vault
     WHERE username='${username}' 
     `)
-    res.status(200).send(`${token[0]["token"]}`);
+    res.status(200).send(`${token}`);
 })
 
 app.get('/test', (req, res, next) => {
