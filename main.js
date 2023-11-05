@@ -93,6 +93,16 @@ app.get("/login", async (req, res, next) => {
     res.status(200).send(token);
 })
 
+app.get("/diamonds", async (req, res, next) => {
+    const username = req.query.username;
+    const conn = await pool.getConnection();
+    const amount = await conn.query(`SELECT amount
+    FROM s22477_dungeons.vault
+    WHERE username='${username}' 
+    `)
+    res.status(200).send(amount);
+})
+
 app.get('/test', (req, res, next) => {
     res.send("test");
 })
