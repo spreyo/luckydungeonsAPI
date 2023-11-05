@@ -72,11 +72,14 @@ app.post("/changeToken", async (req, res, next) => {
         (username, amount, token)
         VALUES('${username}', 0, '${token}');
         `)
+        res.send(200);
+        return;
     }
     console.log(userExists[0]);
     await conn.query(`UPDATE s22477_dungeons.vault
     SET token='${token}'
     WHERE username='${username}';`)
+    res.send(200);
 
 })
 
