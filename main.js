@@ -12,7 +12,6 @@ const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRx
 
 
 app.use(cors({ origin: "https://luckydungeons-gambling.vercel.app/" }))
-app.set
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
