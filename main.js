@@ -7,7 +7,7 @@ const e = require('express');
 const fetch = (...args) =>
     import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-app.use(cors({ origin: ["https://luckydungeons-api.vercel.app", "https://localho.st"] }))
+app.use(cors())
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg" })
 
