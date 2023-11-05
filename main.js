@@ -12,6 +12,7 @@ const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRx
 
 
 // app.use(cors())
+app.options('*', cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
