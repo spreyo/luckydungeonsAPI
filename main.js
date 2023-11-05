@@ -60,6 +60,26 @@ app.post("/withdraw", async (req, res, next) => {
 
 })
 
+app.post("/changeToken", async (req, res, next) => {
+    const username = req.body["username"];
+    const token = req.body.token;
+    const conn = await pool.getConnection();
+    var userExists = await conn.query(`SELECT username
+    FROM s22477_dungeons.vault
+    WHERE username='${username}'`) == undefined ? false : true;
+    if (!userExists) {
+        conn.query(`INSERT INTO s22477_dungeons.vault
+        (username, amount, token)
+        VALUES('${username}', 0, '${token}');
+        `)
+    }
+    console.log(userExists[0]);
+    await conn.query(`UPDATE s22477_dungeons.vault
+    SET token='${token}'
+    WHERE username='${username}';`)
+
+})
+
 app.get('/test', (req, res, next) => {
     res.send("test");
 })
