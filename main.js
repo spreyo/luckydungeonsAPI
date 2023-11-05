@@ -83,6 +83,16 @@ app.post("/changeToken", async (req, res, next) => {
 
 })
 
+app.get("/login", async (req, res, next) => {
+    const username = req.query.username;
+    const conn = await pool.getConnection();
+    const token = await conn.query(`SELECT token
+    FROM s22477_dungeons.vault
+    WHERE username='${username}' 
+    `)
+    res.status(200).send(`${token[0]["token"]}`);
+})
+
 app.get('/test', (req, res, next) => {
     res.send("test");
 })
