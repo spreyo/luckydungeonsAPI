@@ -84,6 +84,9 @@ app.post("/changeToken", async (req, res, next) => {
 })
 
 app.get("/login", async (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     const username = req.query.username;
     const conn = await pool.getConnection();
     const token = await conn.query(`SELECT token
