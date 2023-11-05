@@ -11,7 +11,7 @@ const mariadb = require('mariadb');
 const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg" })
 
 
-app.use(cors({ origin: "*" }))
+app.use(cors({ origin: "https://luckydungeons-gambling.vercel.app/" }))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
