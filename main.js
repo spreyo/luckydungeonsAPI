@@ -7,7 +7,7 @@ const e = require('express');
 const fetch = (...args) =>
     import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-app.use(cors({ origin: "*" }))
+app.use(cors({ origin: ["https://luckydungeons-api.vercel.app", "https://localho.st"] }))
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg" })
 
@@ -84,9 +84,6 @@ app.post("/changeToken", async (req, res, next) => {
 })
 
 app.get("/login", async (req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
     const username = req.query.username;
     const conn = await pool.getConnection();
     const token = await conn.query(`SELECT token
