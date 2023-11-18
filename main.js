@@ -114,7 +114,7 @@ app.delete("/diamonds", async (req, res, next) => {
     await conn.query(`UPDATE s22477_dungeons.vault
     SET amount='${sum}'
     WHERE username='${username}';`)
-    res.status(200);
+    res.send(200);
 })
 
 
