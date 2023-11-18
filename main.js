@@ -108,9 +108,10 @@ app.delete("/diamonds", async (req, res, next) => {
     const conn = await pool.getConnection();
     const amount = await conn.query(`SELECT amount
     FROM s22477_dungeons.vault
-    WHERE username = "${username}"`);
+    WHERE username = "${username}"`)[0]["amount"];
+    const sum = amount - remove >= 0 ? amount - remove : 0
     await conn.query(`UPDATE s22477_dungeons.vault
-    SET amount='${amount[0]["amount"] - remove}'
+    SET amount='${sum}'
     WHERE username='${username}';`)
     res.status(200).send("OK")
 })
