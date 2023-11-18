@@ -102,12 +102,20 @@ app.get("/diamonds", async (req, res, next) => {
     `)
     res.status(200).send(amount);
 })
+app.delete("/diamonds", async (req, res, next) => {
+    const username = req.query.username;
+    const remove = req.query.amount;
+    const conn = await pool.getConnection();
+    const amount = await conn.query(`SELECT amount
+    FROM s22477_dungeons.vault
+    WHERE username = "${username}"`);
+    await conn.query(`UPDATE s22477_dungeons.vault
+    SET amount='${amount[0]["amount"] - remove}'
+    WHERE username='${username}';`)
+    res.status(200).send("OK")
+})
 
-app.get('/test', (req, res, next) => {
-    res.send("test");
-})
-app.delete('/delete/', (req, res) => {
-})
+
 
 
 app.listen(3001, () => {
