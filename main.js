@@ -125,13 +125,12 @@ app.delete("/diamonds", async (req, res, next) => {
 })
 app.put("/diamonds", async (req, res, next) => {
     const username = req.query.username;
-    const remove = req.query.amount;
     const conn = await pool.getConnection();
     const amount = req.query.amount;
     await conn.query(`UPDATE s22477_dungeons.vault
     SET amount='${amount}'
     WHERE username='${username}';`)
-    conn.end();
+    await conn.end();
 
 })
 
