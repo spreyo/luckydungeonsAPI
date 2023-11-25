@@ -131,6 +131,7 @@ app.put("/diamonds", async (req, res, next) => {
     await conn.query(`UPDATE s22477_dungeons.vault
     SET amount='${amount}'
     WHERE username='${username}';`)
+    conn.end();
 
 })
 
