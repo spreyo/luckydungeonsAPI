@@ -9,7 +9,7 @@ const fetch = (...args) =>
 
 app.use(cors())
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg", port: 3307 })
+const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg" })
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,6 +31,7 @@ app.post('/deposit', async (req, res, next) => {
             (username, amount)
             VALUES('${username}', ${amount});
             `)
+        await conn.end();
         res.status(200).send(`${username}, ${amount}`);
         return;
     }
@@ -40,6 +41,7 @@ app.post('/deposit', async (req, res, next) => {
             SET amount = ${parseInt(curAmount[0]["amount"]) + parseInt(amount)}
             WHERE username = '${username}'`)
 
+    await conn.end();
     res.status(200).send(`${username}, ${amount}`);
 })
 
@@ -56,6 +58,7 @@ app.post("/withdraw", async (req, res, next) => {
     await conn.query(`UPDATE s22477_dungeons.vault 
     SET amount = 0
     WHERE username = '${username}'`);
+    await conn.end();
     res.status(200).send(`${amount[0]["amount"]}`);
 
 })
@@ -79,6 +82,7 @@ app.post("/changeToken", async (req, res, next) => {
     await conn.query(`UPDATE s22477_dungeons.vault
     SET token='${token}'
     WHERE username='${username}';`)
+    await conn.end();
     res.send(200);
 
 })
@@ -90,6 +94,7 @@ app.get("/login", async (req, res, next) => {
     FROM s22477_dungeons.vault
     WHERE username='${username}' 
     `)
+    await conn.end();
     res.status(200).send(token);
 })
 
@@ -100,6 +105,7 @@ app.get("/diamonds", async (req, res, next) => {
     FROM s22477_dungeons.vault
     WHERE username='${username}' 
     `)
+    conn.end();
     res.status(200).send(amount);
 })
 app.delete("/diamonds", async (req, res, next) => {
@@ -114,6 +120,7 @@ app.delete("/diamonds", async (req, res, next) => {
     await conn.query(`UPDATE s22477_dungeons.vault
     SET amount='${sum}'
     WHERE username='${username}';`)
+    await conn.end();
     res.send(200);
 })
 
