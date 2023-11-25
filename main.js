@@ -131,6 +131,7 @@ app.put("/diamonds", async (req, res, next) => {
     SET amount='${amount}'
     WHERE username='${username}';`)
     await conn.end();
+    res.send(200);
 
 })
 
