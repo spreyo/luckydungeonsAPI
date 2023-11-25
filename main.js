@@ -9,7 +9,7 @@ const fetch = (...args) =>
 
 app.use(cors())
 const mariadb = require('mariadb');
-const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg" })
+const pool = mariadb.createPool({ host: "sql1.revivenode.com", user: "u22477_FRxzK4fT2t", password: ".nkMp!cl6AgY+vaDz86w+!qg", port: 3307 })
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
